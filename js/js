@@ -1,0 +1,56 @@
+// IIFE Immediately Invoked Function Expression
+$(function () {
+    // Constants - Data that does not change
+    const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
+    const API_KEY = 'bd15ace89e685764b2d6929f0ae53c96';
+
+    // Variables - Data that changes
+    let weatherData;
+
+    // Cached Element References
+
+    const $form = $('form');
+    const $input = $('input[type="text"]');
+    const $main = $('main');
+
+    // Event Listeners
+    $form.on('submit', handleSubmit);
+    // Functions
+
+    function handleSubmit(evt) {
+        evt.preventDefault(); // this turns off the default page refresh behavior in the browser
+        // grab the city we're entering in the form
+        const city = $input.val();
+        // use that city to request a specific movie
+
+        // Using jQuery's $.ajax() method
+        // We use it to request information from a resource using AJAX
+        // This method, when called, returns a JavaScript promise Object
+
+
+        // the .then() method is how we assign instructions
+        // to the promise object so we can tell it what to do
+        // when the promise is fultilled
+        $.ajax(`${BASE_URL}?q=${city}&appid=${API_KEY}&units=imperial`)
+            .then(function (data) {
+                weatherData = data;
+                // success callback function
+                
+                // add data as text content to our DOM elements
+                render();
+            }, function (error) {
+                // failure callback function
+                console.log(error);
+            });
+    }
+
+    function render() {
+        $main.html(`
+        <p id = "city id">Weather For: ${weatherData.name}</p>
+        <p id="temperature">Temperature: ${weatherData.main.temp}</p>
+        <p id="feels">Feels Like: ${weatherData.main.feels_like}</p>
+        <p id="weather">Weather: ${weatherData.weather[0].description}</p>
+        `);
+        $input.val("")
+    }
+});
