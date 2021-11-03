@@ -47,8 +47,8 @@ $(function () {
     function render() {
         $main.html(`
         <p id = "city id">Weather For: ${weatherData.name}</p>
-        <p id="temperature">Temperature: ${weatherData.main.temp}</p>
-        <p id="feels">Feels Like: ${weatherData.main.feels_like}</p>
+        <p id="temperature">Temperature: ${Math.round(weatherData.main.temp)}&#176;</p>
+        <p id="feels">Feels Like: ${Math.round(weatherData.main.feels_like)}&#176;</p>
         <p id="weather">Weather: ${weatherData.weather[0].description}</p>
         `);
         $input.val("")

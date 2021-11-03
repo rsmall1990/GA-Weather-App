@@ -2,4 +2,5 @@ body {
     display: grid;
     margin: 0;
     font-family: Helvetica;
+    padding: 1rem;
 }
